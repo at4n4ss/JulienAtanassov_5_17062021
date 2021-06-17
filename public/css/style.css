@@ -1,3 +1,17 @@
+/* CSS added */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+.card-img,
+.card-img-bottom,
+.card-img-top {
+  height: 20px;
+}
+.test p {
+  color: red;
+}
 /* Boostrap CSS */
 
 *,
@@ -327,15 +341,3 @@ button {
 }
 
 /*# sourceMappingURL=style.css.map */
-
-/* CSS added */
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.card {
-  width: 200px;
-  height: 500px;
-}

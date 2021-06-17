@@ -5,3 +5,5 @@ fetch(url).then((response) =>
     console.log(data);
   })
 );
+
+document.querySelector("");
