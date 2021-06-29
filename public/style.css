@@ -1,10 +1,15 @@
 /* CSS added */
-.row {
-}
+
 .card {
-  height: 350px;
+  width: 18rem;
+  height: 400px;
   margin: 10;
 }
 .card-img-top {
   height: 250px;
+}
+
+.produit {
+  display: flex;
+  justify-content: center;
 }
