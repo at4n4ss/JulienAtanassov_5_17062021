@@ -1,4 +1,19 @@
-/* CSS added */
+.card {
+  width: 18rem;
+  height: 400px;
+  margin: 10;
+}
+.card-img-top {
+  height: 250px;
+}
+
+.produit {
+  display: flex;
+  justify-content: center;
+}
+
+
+
 html,
 body {
   margin: 0;
@@ -12,7 +27,7 @@ body {
 .test p {
   color: red;
 }
-/* Boostrap CSS */
+
 
 *,
 *::after,
@@ -339,5 +354,7 @@ button {
   width: 100%;
   margin: 0 auto;
 }
+
+
 
 /*# sourceMappingURL=style.css.map */

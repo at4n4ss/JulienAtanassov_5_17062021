@@ -3,7 +3,7 @@ let idours = params.get("id");
 let urlId = "http://localhost:3000/api/teddies/" + idours;
 console.log(urlId);
 
-/* Ajout des informations du produit relié à l'id */
+/* Ajout des informations du produit sur la card  */
 fetch(urlId)
   .then(response => response.json())
   .then(data => {
@@ -13,26 +13,34 @@ fetch(urlId)
     elementImg.src = data.imageUrl;
     var elementDesc = document.getElementById("card-desc");
     elementDesc.textContent = data.description;
+
     var buttonCart = document.getElementById("bouton");
     /* Ajout des données au local storage  */
-    buttonCart.addEventListener(
-      "click",
-      function () {
-        sessionStorage.setItem("id", data._id);
-        sessionStorage.setItem("name", data.name);
-        sessionStorage.setItem("price", data.price);
-        var localName = sessionStorage.getItem("name");
-        console.log(localName);
-      },
-      false
-    );
-  });
 
-/* Bouton ajouter au panier */
-/*
-localStorage.setItem("id", data._id);
-localStorage.setItem("name", data.name);
-localStorage.setItem("price", data.price);
-var localName = localStorage.getItem("name");
-    console.log(localName);
-    */
+    /* Bouton ajouter au panier */
+    buttonCart.addEventListener("click", event => {
+      event.preventDefault();
+      /* Récupération du produit pour l'introduire après au localStorage  */
+      let dataProduit = {
+        nameProduit: data.name,
+        idProduit: data._id,
+        priceProduit: data.price,
+      };
+      console.log(dataProduit);
+
+      /* Déclaration de la variable où seront stockés keys/values du localStoage */
+      let elementLocalStorage = JSON.parse(localStorage.getItem("Produit"));
+      console.log(elementLocalStorage);
+
+      if (elementLocalStorage) {
+        elementLocalStorage.push(dataProduit);
+        localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
+        console.log(elementLocalStorage);
+      } else {
+        elementLocalStorage = [];
+        elementLocalStorage.push(dataProduit);
+
+        localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
+      }
+    });
+  });

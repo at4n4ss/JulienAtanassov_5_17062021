@@ -14,15 +14,18 @@ fetch(url)
   .then(response => response.json())
   .then(data => {
     data.forEach(ours => {
+      let oursName = ours.name;
       /* Accès au DOM */
       const element = document.getElementById("cards");
       /* Structure du card */
       var elementBox = document.createElement("div");
       elementBox.className = "col-md-4";
       element.appendChild(elementBox);
+
       const elementTitle = document.createElement("div");
       elementTitle.className = "card";
       elementBox.appendChild(elementTitle);
+
       /* Image du produit */
       const elementImg = document.createElement("img");
       var oursImg = ours.imageUrl;
@@ -47,12 +50,23 @@ fetch(url)
       let elementID = ours._id;
       const elementButton = document.createElement("a");
       elementButton.className = "btn btn-primary";
-      elementButton.href = "produit.html?id=" + elementID;
+
       elementButton.innerHTML = "Acheter";
       elementCardBody.appendChild(elementButton);
-    });
+      /* Lien enveloppant le card */
+
+      /* const cardLink = document.createElement("a");
+      cardLink.className = "stretched-link";
+      cardLink.href = "produit.html?id=" + elementID;
+      elementTitle.appendChild(cardLink); */
+
+      document.body.addEventListener("click", function (evt) {
+        evt.preventDefault();
+        if (evt.target.className === "btn btn-primary") {
+          alert("yo");
+        }
+      });
+    }, false);
   });
 
-/* 
-  Chaque card d'un ours est un lien vers produit.html?id=bedazds
-  */
+/* Ajout des données au local storage  */
