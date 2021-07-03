@@ -1,6 +1,6 @@
 .card {
   width: 18rem;
-  height: 400px;
+  height: 90%;
   margin: 10;
 }
 .card-img-top {
@@ -10,4 +10,37 @@
 .produit {
   display: flex;
   justify-content: center;
+}
+
+/* Panier.html */
+
+.panier {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 1px solid black;
+}
+.rowProduits {
+  width: 30%;
+}
+.cart-quantity-input {
+  width: 30%;
+}
+.cart-column {
+  width: 20%;
+}
+.formulaire {
+  width: 40%;
+}
+.nomForm {
+  width: 30%;
+  margin-right: 15%;
+}
+.nameBox {
+  display: flex;
+}
+/* Produit.html  */
+.priceButtonBox {
+  display: flex;
+  justify-content: space-around;
 }

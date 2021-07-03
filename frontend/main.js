@@ -1,17 +1,3 @@
-/* Fonction pour retourner les data du back */
-function fetchData() {
-  let data = fetch(url).then(response => response.json());
-  return data;
-}
-
-/* Création du tableau contenant les variables des produits */
-let oursColor = [];
-let oursId = [];
-let oursNom = [];
-let oursPrice = [];
-let oursImgUrl = [];
-let oursDesc = [];
-
 function affichageProduits(response) {
   for (i = 0; i < response.length; i++) {
     /* Insertion des données du back dans les tableaux */
@@ -29,5 +15,18 @@ function affichageProduits(response) {
 }
 fetchData().then(response => {
   affichageProduits(response);
-  console.log(oursImgUrl);
 });
+
+/* ----------- Ajout des données au local storage ------------- */
+for (i = 0; i < data.length; i++) {
+  /* Insertion des données du produit dans les tableaux */
+
+  element.forEach((data, i) => {
+    oursColor[i] = data.colors;
+    oursId[i] = data._id;
+    oursNom[i] = data.name;
+    oursPrice[i] = data.price;
+    oursImgUrl[i] = data.imageUrl;
+    oursDesc[i] = data.description;
+  });
+}

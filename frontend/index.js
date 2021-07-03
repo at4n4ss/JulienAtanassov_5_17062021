@@ -42,16 +42,21 @@ fetch(url)
       elementText.innerHTML = ours.name;
       elementCardBody.appendChild(elementText);
       /* Prix du produit */
+      /* Insertion du signe € dans le prix */
+      let prixx = ours.price;
+      let split = prixx.toString().split("");
+      let prixAffiche = split[0] + split[1] + "€" + split[2] + split[3];
+      console.log(prixAffiche);
       const elementPrice = document.createElement("p");
       elementPrice.className = "card-text";
-      elementPrice.innerHTML = ours.price;
+      elementPrice.innerHTML = prixAffiche;
       elementCardBody.appendChild(elementPrice);
       /* Bouton acheter et lien ID */
       let elementID = ours._id;
       const elementButton = document.createElement("a");
       elementButton.className = "btn btn-primary";
-
-      elementButton.innerHTML = "Acheter";
+      elementButton.href = "produit.html?id=" + elementID;
+      elementButton.innerHTML = "Description du produit";
       elementCardBody.appendChild(elementButton);
       /* Lien enveloppant le card */
 
@@ -59,14 +64,5 @@ fetch(url)
       cardLink.className = "stretched-link";
       cardLink.href = "produit.html?id=" + elementID;
       elementTitle.appendChild(cardLink); */
-
-      document.body.addEventListener("click", function (evt) {
-        evt.preventDefault();
-        if (evt.target.className === "btn btn-primary") {
-          alert("yo");
-        }
-      });
-    }, false);
+    });
   });
-
-/* Ajout des données au local storage  */

@@ -16,6 +16,64 @@
     <link rel="stylesheet" href="/public/style.css" />
   </head>
   <body>
+    <header class="d-flex  py-3">
+      <div class="container">
+        <div class="col-md-12">
+          <ul class="nav nav-pills justify-content-center">
+            <li class="nav-item"><a href="index.html" class="nav-link" >Acceuil</a></li>
+            <li class="nav-item"><a href="produit.html" class="nav-link" >Produit</a></li>
+            <li class="nav-item"><a href="panier.html" class="nav-link active" aria-current="page">Panier</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Commandes</a></li>  
+          </ul>
+        </div>
+    </div>
+    
+</header>
+    <div class="container-fluid">
+      <div class="container panier">
+        <div id="cards" class="container">
+          <h2>Produits</h2>
+       <div id="produits" class="row produits">
+        
+        
+       </div>
+       <div class="container prixTotal">
+      <div id="elementPrixTotal">Prix total de votre commande:        </div>
+
+       </div>
+        </div>  
+    </div>
+    <div class="container formulaire">
+    <form>
+      <div class="container nameBox">
+      <div class="form-group nomForm">
+        <label for="formGroupExampleInput">Nom</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Dupont">
+      </div>
+      <div class="form-group nomForm">
+        <label for="formGroupExampleInput2">Prénom</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Jean">
+      </div>
+    </div>
+    <div class="container">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Adresse</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="16 rue rivoli, 75016 Paris">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Email</label>
+        <input type="email" class="form-control" id="formGroupExampleInput2" placeholder="email@exemple.com">
+      </div>
+    </div>
+    </form>
+  </div>
+<!--
+    <div class="cart-quantity cart-column">
+      <input class="cart-quantity-input" type="number" value="2">
+      <button class="btn btn-danger" type="button">Supprimer</button>
+  </div>
+  -->
+    <!--
     <section class="container content-section">
         <h2 class="section-header">PANIER</h2>
         <div class="card-row">
@@ -41,10 +99,7 @@
                     <span class="cart-item-title">NAME 2</span>
                 </div>
                 <span class="cart-price cart-column">PRICE</span>
-                <div class="cart-quantity cart-column">
-                    <input class="cart-quantity-input" type="number" value="2">
-                    <button class="btn btn-danger" type="button">Supprimer</button>
-                </div>
+                
             </div>
         </div>
         <div class="cart-total">
@@ -53,5 +108,10 @@
         </div>
         <button class="btn btn-primary btn-purchase" type="button">COMMANDER</button>
     </section>
+    -->
+     <!-- Scripts-->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+     <script src="panier.js">  </script>
+    
   </body>
 </html>
