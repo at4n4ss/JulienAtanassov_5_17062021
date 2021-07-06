@@ -25,7 +25,6 @@ fetchData().then(data => {
   console.log(prixAffiche);
   let elementPriceBox = document.getElementById("priceElement");
   elementPriceBox.textContent = prixAffiche;
-  elementPriceBox.appendChild(elementPrice);
 });
 
 /* Création du tableau contenant les variables des produits */
@@ -41,17 +40,14 @@ fetchData().then(data => {
   oursNom.push(data.name);
   oursId.push(data._id);
   oursPrice.push(data.price);
-  oursQuantite.push("1");
 });
-console.log(oursNom);
+
 /* Création du tableau qui sera envoyé au localStorage */
 let dataProduit = {
-  nameProduit: oursNom,
-  idProduit: oursId,
-  priceProduit: oursPrice,
-  quantite: oursQuantite,
+  oursNom,
+  oursId,
+  oursPrice,
 };
-
 /* -------   Bouton ajouter au panier  ------- */
 var buttonCart = document.getElementById("bouton");
 buttonCart.addEventListener("click", event => {
