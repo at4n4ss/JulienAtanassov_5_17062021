@@ -1,16 +1,16 @@
 /* Récupération des produits dans le localStorage */
-
 let elementLocalStorage = JSON.parse(localStorage.getItem("produit"));
+/* Création d'un tableau pour calculer le prix total du panier */
 let prixTotal = [];
 
-/* Si le panier est vide*/
+/* Gestion du localStorage et insertion dans hmtl */
 if (elementLocalStorage === null) {
   let elementProduits = document.getElementById("produits");
   let elementVide = document.createElement("p");
   elementVide.innerHTML = "Votre panier est vide";
   elementProduits.appendChild(elementVide);
 } else {
-  /* ------Récupération de chaque produit------ */
+  /* ------Récupération de chaque produit et insertion du localstorage ------ */
   elementLocalStorage.forEach(element => {
     let boxCart = document.getElementById("boxCart");
     let rowProduit = document.createElement("div");
@@ -41,24 +41,20 @@ if (elementLocalStorage === null) {
     suppButton.dataset.id = element.oursId;
     rowAlign.appendChild(suppButton);
     /* Total price */
-    let totalPrice = document.getElementById("priceTotal");
     let prixx = element.oursPrice;
     prixString = prixx.toString();
     prixFloat = parseFloat(prixString);
     prixTotal.push(prixFloat);
   });
 }
-/* Prix total */
 
+/* Prix total */
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 let prixFinal = prixTotal.reduce(reducer);
-
 let elementPrixTotal = document.getElementById("elementPrixTotal");
-
 totalPrice.innerHTML += prixFinal;
 
 /* Bouton supprimer */
-
 boxCart.onclick = function (evt) {
   /* On selectionne nos boutons */
   if (evt.target && evt.target.classList.contains("btn-danger")) {
@@ -69,9 +65,7 @@ boxCart.onclick = function (evt) {
       /* Si le data-id correspond à un produit du local storage */
       if (elementString === id) {
         /* Le supprimer du localStorage */
-
         elementLocalStorage.splice(index, 1);
-
         localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
         /* Le supprimer du html */
       }
@@ -96,7 +90,7 @@ formPanier.prenom.addEventListener("change", function () {
   validNames(this);
 });
 
-/* Fonction contenant le regExp pour valider nom et prénom */
+/* Fonction  pour valider nom et prénom */
 const validNames = function (inputName) {
   let nameRegExp = /^[a-z ,.'-]+$/i;
   let testName = nameRegExp.test(inputName.value);
@@ -112,6 +106,7 @@ const validNames = function (inputName) {
 formPanier.adresse.addEventListener("change", function () {
   validAdress(this);
 });
+/* Fonction  pour valider l'adresse */
 const validAdress = function (inputAdress) {
   let adressRegExp = /^([0-9]*) ?([a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)/;
   let testAdress = adressRegExp.test(inputAdress.value);
@@ -123,6 +118,24 @@ const validAdress = function (inputAdress) {
   }
 };
 
-/* Tableau contenant les informations du client */
-
+/*----- Passer commande -----*/
+/* Récupération des données du formulaire */
 let contact = [];
+function formPush() {
+  let firstName = document.getElementById("firstName").value;
+  let lastName = document.getElementById("lastName").value;
+  let adress = document.getElementById("adress").value;
+  let city = document.getElementById("city").value;
+  let email = document.getElementById("email").value;
+  contact.push(firstName);
+  contact.push(lastName);
+  contact.push(adress);
+  contact.push(city);
+  contact.push(email);
+}
+
+/* Ecoute bouton commander */
+commander.addEventListener("click", function () {
+  formPush();
+  console.log(contact);
+});
