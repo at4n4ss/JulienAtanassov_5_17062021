@@ -81,3 +81,48 @@ boxCart.onclick = function (evt) {
     evtButton.parentElement.parentElement.remove();
   }
 };
+
+/*----- Validation des données du formulaire -----*/
+
+/* Accès au formulaire */
+let formPanier = document.getElementById("panierForm");
+/*--- Nom ---*/
+formPanier.nom.addEventListener("change", function () {
+  validNames(this);
+});
+
+/*--- Prénom ---*/
+formPanier.prenom.addEventListener("change", function () {
+  validNames(this);
+});
+
+/* Fonction contenant le regExp pour valider nom et prénom */
+const validNames = function (inputName) {
+  let nameRegExp = /^[a-z ,.'-]+$/i;
+  let testName = nameRegExp.test(inputName.value);
+  let falseText = inputName.nextElementSibling;
+  if (testName) {
+    falseText.innerHTML = "Nom valide";
+  } else {
+    falseText.innerHTML = "Nom invalide";
+  }
+};
+
+/*--- Adresse ---*/
+formPanier.adresse.addEventListener("change", function () {
+  validAdress(this);
+});
+const validAdress = function (inputAdress) {
+  let adressRegExp = /^([0-9]*) ?([a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)/;
+  let testAdress = adressRegExp.test(inputAdress.value);
+  let falseAdress = inputAdress.nextElementSibling;
+  if (testAdress) {
+    falseAdress.innerHTML = "Adresse valide";
+  } else {
+    falseAdress.innerHTML = "Adresse invalide";
+  }
+};
+
+/* Tableau contenant les informations du client */
+
+let contact = [];
