@@ -76,66 +76,99 @@ boxCart.onclick = function (evt) {
   }
 };
 
-/*----- Validation des données du formulaire -----*/
-
 /* Accès au formulaire */
 let formPanier = document.getElementById("panierForm");
+
+/*-------- Validation des données du formulaire --------*/
+
 /*--- Nom ---*/
-formPanier.nom.addEventListener("change", function () {
+formPanier.lastName.addEventListener("change", function () {
   validNames(this);
 });
-
 /*--- Prénom ---*/
-formPanier.prenom.addEventListener("change", function () {
+formPanier.firstName.addEventListener("change", function () {
   validNames(this);
 });
+/*--- Ville ----*/
+formPanier.city.addEventListener("change", function () {
+  validNames(this);
+});
+/*--- Adresse ---*/
+formPanier.address.addEventListener("change", function () {
+  validAdress(this);
+});
+/*--- Email ---*/
+formPanier.email.addEventListener("change", function () {
+  validEmail(this);
+});
 
-/* Fonction  pour valider nom et prénom */
+/* ---- Fonctions regex afin de valier les input ---- */
+
+/* Fonction  pour valider nom ,prénom et ville */
 const validNames = function (inputName) {
   let nameRegExp = /^[a-z ,.'-]+$/i;
   let testName = nameRegExp.test(inputName.value);
   let falseText = inputName.nextElementSibling;
   if (testName) {
-    falseText.innerHTML = "Nom valide";
+    falseText.innerHTML = "valide";
   } else {
-    falseText.innerHTML = "Nom invalide";
+    falseText.innerHTML = "invalide";
   }
 };
-
-/*--- Adresse ---*/
-formPanier.adresse.addEventListener("change", function () {
-  validAdress(this);
-});
 /* Fonction  pour valider l'adresse */
-const validAdress = function (inputAdress) {
-  let adressRegExp = /^([0-9]*) ?([a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)/;
-  let testAdress = adressRegExp.test(inputAdress.value);
-  let falseAdress = inputAdress.nextElementSibling;
+const validAdress = function (inputAddress) {
+  let addressRegExp = /^([0-9]*) ?([a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)/;
+  let testAddress = addressRegExp.test(inputAddress.value);
+  let falseAdress = inputAddress.nextElementSibling;
   if (testAdress) {
     falseAdress.innerHTML = "Adresse valide";
   } else {
     falseAdress.innerHTML = "Adresse invalide";
   }
 };
+/* Fonction  pour valider l'email*/
+const validEmail = function (inputEmail) {
+  let emailRegExp =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let testEmail = emailRegExp.test(inputEmail.value);
+  let falseEmail = inputEmail.nextElementSibling;
+  if (testEmail) {
+    falseEmail.innerHTML = "Email valide";
+  } else {
+    falseEmail.innerHTML = "Email invalide";
+  }
+};
 
-/*----- Passer commande -----*/
-/* Récupération des données du formulaire */
-let contact = [];
-function formPush() {
-  let firstName = document.getElementById("firstName").value;
-  let lastName = document.getElementById("lastName").value;
-  let adress = document.getElementById("adress").value;
-  let city = document.getElementById("city").value;
-  let email = document.getElementById("email").value;
-  contact.push(firstName);
-  contact.push(lastName);
-  contact.push(adress);
-  contact.push(city);
-  contact.push(email);
-}
+/*----------- Passer commande -----------*/
 
 /* Ecoute bouton commander */
-commander.addEventListener("click", function () {
-  formPush();
-  console.log(contact);
+
+document.forms["panierForm"].addEventListener("submit", function (evt) {
+  let erreur;
+  let inputs = this;
+  /* Boucle pour verifier que chaque input est bien renseigné  */
+  for (var i = 0; i < inputs.length; i++) {
+    if (!inputs[i].value) {
+      evt.preventDefault();
+      erreur = "Veuillez renseigner tous les champs";
+    }
+  }
+  if (erreur) {
+    document.getElementById("erreur").innerHTML = erreur;
+  } else {
+    /* Envoi du formulaire */
+    alert("form envoyé");
+  }
 });
+
+/* Récupération des données du formulaire */
+let params = new URL(document.location).searchParams;
+let contact = {
+  firstName: params.get("firstName"),
+  lastName: params.get("lastName"),
+  address: params.get("address"),
+  city: params.get("city"),
+  email: params.get("email"),
+};
+
+console.log(contact);
