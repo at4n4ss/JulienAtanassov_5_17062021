@@ -28,26 +28,12 @@ fetchData().then(data => {
 });
 
 /* Création du tableau contenant les variables des produits */
-let oursColor = [];
-let oursId = [];
-let oursNom = [];
-let oursPrice = [];
-let oursImgUrl = [];
-let oursDesc = [];
-let oursQuantite = [];
-/* Ajout des valeurs du back dans les tableaux */
-fetchData().then(data => {
-  oursNom.push(data.name);
-  oursId.push(data._id);
-  oursPrice.push(data.price);
-});
+let productId;
+let productName;
+let productPrice;
 
-/* Création du tableau qui sera envoyé au localStorage */
-let dataProduit = {
-  oursNom,
-  oursId,
-  oursPrice,
-};
+/* Création de l'objet qui sera envoyé au localStorage */
+
 /* -------   Bouton ajouter au panier  ------- */
 var buttonCart = document.getElementById("bouton");
 buttonCart.addEventListener("click", event => {
@@ -56,13 +42,26 @@ buttonCart.addEventListener("click", event => {
   /* Déclaration de la variable où seront stockés keys/values du localStoage */
   let elementLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
-  /* if:true Si le local storage n'est pas vide */
-  if (elementLocalStorage) {
-    elementLocalStorage.push(dataProduit);
-    localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
-  } else {
-    elementLocalStorage = [];
-    elementLocalStorage.push(dataProduit);
-    localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
-  }
+  /* Ajout des valeurs du produit dans le tableau dataProduit */
+  fetchData().then(data => {
+    let productId = data._id;
+    let productName = data.name;
+    let productPrice = data.price;
+    let dataProduit = {
+      productName: productName,
+      productId: productId,
+      productPrice: productPrice,
+    };
+    console.log(dataProduit);
+
+    /* if:true Si le local storage n'est pas vide */
+    if (elementLocalStorage) {
+      elementLocalStorage.push(dataProduit);
+      localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
+    } else {
+      elementLocalStorage = [];
+      elementLocalStorage.push(dataProduit);
+      localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
+    }
+  });
 });

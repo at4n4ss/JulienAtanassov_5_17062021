@@ -1,5 +1,6 @@
 /* Récupération des produits dans le localStorage */
 let elementLocalStorage = JSON.parse(localStorage.getItem("produit"));
+
 /* Création d'un tableau pour calculer le prix total du panier */
 let prixTotal = [];
 
@@ -25,12 +26,12 @@ if (elementLocalStorage === null) {
     /* Nom produit */
     let colName = document.createElement("div");
     colName.className = "row";
-    colName.innerHTML = element.oursNom;
+    colName.innerHTML = element.productName;
     rowCol.appendChild(colName);
     /* Prix produit*/
     let colPrice = document.createElement("div");
     colPrice.className = "col";
-    colPrice.innerHTML = element.oursPrice;
+    colPrice.innerHTML = element.productPrice;
     rowAlign.appendChild(colPrice);
     /* Bouton supprimer */
     let suppButton = document.createElement("div");
@@ -38,13 +39,14 @@ if (elementLocalStorage === null) {
     suppButton.type = "button";
     suppButton.innerHTML = "Supprimer";
     suppButton.dataset.id;
-    suppButton.dataset.id = element.oursId;
+    suppButton.dataset.id = element.productId;
     rowAlign.appendChild(suppButton);
     /* Total price */
-    let prixx = element.oursPrice;
-    prixString = prixx.toString();
-    prixFloat = parseFloat(prixString);
+    let prixx = element.productPrice;
+
+    prixFloat = parseFloat(prixx);
     prixTotal.push(prixFloat);
+    produits = elementLocalStorage;
   });
 }
 
@@ -126,7 +128,7 @@ const validAdress = function (inputAddress) {
     falseAdress.innerHTML = "Adresse invalide";
   }
 };
-/* Fonction  pour valider l'email*/
+/* Fonction  pour valider l'email */
 const validEmail = function (inputEmail) {
   let emailRegExp =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -143,32 +145,45 @@ const validEmail = function (inputEmail) {
 
 /* Ecoute bouton commander */
 
-document.forms["panierForm"].addEventListener("submit", function (evt) {
-  let erreur;
-  let inputs = this;
-  /* Boucle pour verifier que chaque input est bien renseigné  */
-  for (var i = 0; i < inputs.length; i++) {
-    if (!inputs[i].value) {
-      evt.preventDefault();
-      erreur = "Veuillez renseigner tous les champs";
-    }
-  }
-  if (erreur) {
-    document.getElementById("erreur").innerHTML = erreur;
-  } else {
-    /* Envoi du formulaire */
-    alert("form envoyé");
-  }
-});
-
 /* Récupération des données du formulaire */
 let params = new URL(document.location).searchParams;
-let contact = {
-  firstName: params.get("firstName"),
-  lastName: params.get("lastName"),
-  address: params.get("address"),
-  city: params.get("city"),
-  email: params.get("email"),
-};
 
-console.log(contact);
+let firstName = params.get("firstName");
+let lastName = params.get("lastName");
+let address = params.get("address");
+let city = params.get("city");
+let email = params.get("email");
+
+let products = [];
+
+elementLocalStorage.forEach(element => {
+  stringElement = JSON.stringify(element);
+  products.push(stringElement);
+});
+console.log(products);
+let contact = {
+  firstName: firstName,
+  lastName: lastName,
+  address: address,
+  city: city,
+  email: email,
+};
+let order = {
+  contact,
+  products,
+};
+console.log(order);
+/*  Envoi des données au backend  */
+function send(e) {
+  e.preventDefault();
+  fetch("http://localhost:3000/order", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    data: JSON.stringify(order),
+  });
+}
+/* Bouton commander */
+document.getElementById("panierForm").addEventListener("submit", send);
