@@ -52,10 +52,11 @@ if (elementLocalStorage === null) {
 
 /* Prix total */
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-let prixFinal = prixTotal.reduce(reducer);
-let elementPrixTotal = document.getElementById('elementPrixTotal');
-totalPrice.innerHTML += prixFinal;
-
+const totalCart = function () {
+  let prixFinal = prixTotal.reduce(reducer);
+  totalPrice.innerHTML = prixFinal;
+};
+totalCart();
 /* Bouton supprimer */
 boxCart.onclick = function (evt) {
   /* On selectionne nos boutons */
@@ -69,7 +70,6 @@ boxCart.onclick = function (evt) {
         /* Le supprimer du localStorage */
         elementLocalStorage.splice(index, 1);
         localStorage.setItem('produit', JSON.stringify(elementLocalStorage));
-
         return false;
       } else {
         return true;
