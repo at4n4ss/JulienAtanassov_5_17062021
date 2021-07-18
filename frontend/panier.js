@@ -115,6 +115,7 @@ const validNames = function (inputName) {
   let testName = nameRegExp.test(inputName.value);
   let falseText = inputName.nextElementSibling;
   if (testName) {
+    falseText.innerHTML = '';
     return true;
   } else {
     falseText.innerHTML = 'Invalide';
@@ -123,10 +124,11 @@ const validNames = function (inputName) {
 };
 /* Fonction pour valider l'adresse */
 const validAddress = function (inputAddress) {
-  let addressRegExp = /([0-9a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)/;
+  let addressRegExp = /^\d+[a-z ,.'-]+[a-z ,.'-]+\d+$/i;
   let testAddress = addressRegExp.test(inputAddress.value);
   let falseAddress = inputAddress.nextElementSibling;
   if (testAddress) {
+    falseAddress.innerHTML = '';
     return true;
   } else {
     falseAddress.innerHTML = 'Invalide';
@@ -136,10 +138,11 @@ const validAddress = function (inputAddress) {
 /* Fonction pour valider l'email */
 const validEmail = function (inputEmail) {
   let emailRegExp =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   let testEmail = emailRegExp.test(inputEmail.value);
   let falseEmail = inputEmail.nextElementSibling;
   if (testEmail) {
+    falseEmail.innerHTML = '';
     return true;
   } else {
     falseEmail.innerHTML = 'Invalide';
@@ -150,9 +153,9 @@ const validEmail = function (inputEmail) {
 const validForm = function () {
   if (validNames(formPanier.lastName)) {
     if (validNames(formPanier.firstName)) {
-      if (validNames(formPanier.address)) {
+      if (validAddress(formPanier.address)) {
         if (validNames(formPanier.city)) {
-          if (validNames(formPanier.email)) {
+          if (validEmail(formPanier.email)) {
             return true;
           }
         }
