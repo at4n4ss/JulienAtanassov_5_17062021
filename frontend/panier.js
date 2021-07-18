@@ -63,7 +63,7 @@ boxCart.onclick = function (evt) {
     /* On retrouve le data-id */
     const id = evt.target.dataset.id;
     elementLocalStorage.forEach((element, index) => {
-      const elementString = element.oursId.toString();
+      const elementString = element.productId.toString();
       /* Si le data-id correspond à un produit du local storage */
       if (elementString === id) {
         /* Le supprimer du localStorage */
@@ -155,35 +155,36 @@ let city = params.get("city");
 let email = params.get("email");
 
 let products = [];
-
 elementLocalStorage.forEach(element => {
-  stringElement = JSON.stringify(element);
-  products.push(stringElement);
+  elementString = JSON.stringify(element)
+  products.push(element);
 });
+
 console.log(products);
 let contact = {
   firstName: firstName,
   lastName: lastName,
   address: address,
   city: city,
-  email: email,
+  email: email
 };
-let order = {
-  contact,
-  products,
+let data = {
+  contact:contact,
+  products:products,
 };
-console.log(order);
+console.log(JSON.stringify(data));
 /*  Envoi des données au backend  */
 function send(e) {
   e.preventDefault();
-  fetch("http://localhost:3000/order", {
+  fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      'Accept': "application/json",
+      'Content-Type': "application/json"
     },
-    data: JSON.stringify(order),
-  });
+    body: JSON.stringify(data)
+  })
+  
 }
 /* Bouton commander */
-document.getElementById("panierForm").addEventListener("submit", send);
+document.getElementById("panierForm").addEventListener("submit", send)

@@ -9,6 +9,16 @@
   height: 250px;
 }
 
+body {
+  background-color:#f3e9f1 ;
+}
+
+/* Logo */
+
+#logo{
+  width: 150px;
+  height: 70px;
+}
 /* Boutons */
 .btn-primary:hover {
   color: #fff;
@@ -41,7 +51,14 @@
   display: flex;
   justify-content: center;
 }
-
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.containerLogo{
+  width: 1%;
+}
 /* Panier.html */
 
 .panier {
