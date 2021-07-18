@@ -21,7 +21,7 @@
     <header class="d-flex  py-3">
       <div class="container header">
         <div class="containerLogo">
-          <img id="logo" src="C:\Openclassroom\P5_atanassov_julien\frontend\public\img\logo.png" alt="logo">
+          <img id="logo" src="\Openclassroom\P5_atanassov_julien\frontend\public\img\logo.png" alt="logo">
         </div>
         <div class="col-md-12">
           
@@ -40,7 +40,7 @@
 <!-- Produits du panier -->
   
   <div class="card cartCard">
-    <div class="row">
+    <div class="row cartColumn">
         <div id="boxCart"class="col-md-8 cart">
             <div class="title">
                 <div class="row">
@@ -65,34 +65,34 @@
 
                 <!-- Formulaire pour passer la commande -->
                 <div class="container formulaire">
-                  <form id="panierForm">
+                  <form method="post"  id="panierForm">
                     <div class="container nameBox">
                     <div class="form-group nomForm">
                       <label for="nom">Nom</label>
                       <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Dupont" required>
-                      <div></div>
+                      <div class="boxError"></div>
                     </div>
                     <div class="form-group nomForm">
                       <label for="prenom">Prénom</label>
                       <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Jean" required>
-                      <div></div>
+                      <div class="boxError"></div>
                     </div>
                   </div>
                   <div class="container">
                     <div class="form-group">
                       <label for="adresse">Adresse</label>
                       <input type="text" name="address" class="form-control" id="address" placeholder="16 rue rivoli 75016" required>
-                      <div></div>
+                      <div class="boxError"></div>
                     </div>
                     <div class="form-group">
                       <label for="city">Ville</label>
                       <input type="text" name="city" class="form-control" id="city" placeholder="Paris" required>
-                      <div></div>
+                      <div class="boxError"></div>
                     </div>
                     <div class="form-group">
                       <label for="email">Email</label>
                       <input type="email" name="email" class="form-control" id="email" placeholder="email@exemple.com" required>
-                      <div></div>
+                      <div class="boxError"></div>
                     </div>
                   </div>
                   <input id="commander" type="submit" class="form-control" name="submit" value="Commander" />

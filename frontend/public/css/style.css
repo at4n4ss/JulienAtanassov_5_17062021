@@ -10,12 +10,12 @@
 }
 
 body {
-  background-color:#f3e9f1 ;
+  background-color: #f3e9f1;
 }
 
 /* Logo */
 
-#logo{
+#logo {
   width: 150px;
   height: 70px;
 }
@@ -56,8 +56,18 @@ body {
   justify-content: center;
   align-items: center;
 }
-.containerLogo{
+@media (max-width: 767px) {
+  .header {
+    flex-wrap: wrap;
+  }
+}
+.containerLogo {
   width: 1%;
+}
+@media (max-width: 767px) {
+  .containerLogo {
+    width: 100%;
+  }
 }
 /* Panier.html */
 
@@ -88,6 +98,11 @@ body {
 }
 .nameBox {
   display: flex;
+}
+.boxError {
+  margin-top: -26px;
+  height: 20px;
+  color: red;
 }
 /* Produit.html  */
 .priceButtonBox {
@@ -129,6 +144,7 @@ body {
 
 @media (max-width: 767px) {
   .cart {
+    width: 100%;
     padding: 4vh;
     border-bottom-left-radius: unset;
     border-top-right-radius: 1rem;
@@ -147,6 +163,7 @@ body {
 
 @media (max-width: 767px) {
   .summary {
+    width: 100%;
     border-top-right-radius: unset;
     border-bottom-left-radius: 1rem;
   }
@@ -245,7 +262,7 @@ a:hover {
       rgba(255, 255, 255, 0.253),
       rgba(255, 255, 255, 0.185)
     ),
-    url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    url('https://img.icons8.com/small/16/000000/long-arrow-right.png');
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: center;
