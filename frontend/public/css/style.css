@@ -1,6 +1,6 @@
 .card {
   width: 18rem;
-  height: 90%;
+  height: 92%;
   margin: 10;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -266,7 +266,7 @@ a:hover {
       rgba(255, 255, 255, 0.253),
       rgba(255, 255, 255, 0.185)
     ),
-    url('https://img.icons8.com/small/16/000000/long-arrow-right.png');
+    url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: center;

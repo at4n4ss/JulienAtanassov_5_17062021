@@ -206,28 +206,32 @@ function getValue() {
 }
 function send(e) {
   e.preventDefault();
-  validForm();
-  if (validForm() == true) {
-    getValue();
-
-    fetch("http://localhost:3000/api/teddies/order", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then(function (res) {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then(function (value) {
-        console.log(value);
-      });
+  if (elementLocalStorage.length === 0) {
+    alert("Votre panier est vide");
   } else {
-    console.log("erreur formulaire");
+    validForm();
+    if (validForm() == true) {
+      getValue();
+
+      fetch("http://localhost:3000/api/teddies/order", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+        .then(function (res) {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .then(function (value) {
+          console.log(value);
+        });
+    } else {
+      console.log("erreur dans formulaire");
+    }
   }
 }
 /* Bouton commander */

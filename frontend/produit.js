@@ -1,16 +1,15 @@
-/* Paramétrage du lien en relation avec l'id du produit selectionné */
-let params = new URL(document.location).searchParams;
-let idours = params.get("id");
-let urlId = "http://localhost:3000/api/teddies/" + idours;
-
+/* Rediriger le client vers l'acceuil */
+function RedirectionIndex() {
+  document.location.href = "../index.html";
+}
 /* Fonction pour retourner les data du back */
-function fetchData() {
+const fetchData = function (urlId) {
   let data = fetch(urlId).then(response => response.json());
   return data;
-}
+};
 
 /* Ajout des informations du produit sur la card  */
-fetchData().then(data => {
+const cardElements = function (data) {
   var element = document.getElementById("card-title-id");
   element.textContent += data.name;
   var elementImg = document.getElementById("card-img");
@@ -23,30 +22,40 @@ fetchData().then(data => {
   elementPriceBox.textContent = prixx;
   /* Liste options couleurs */
   let colorOptions = data.colors;
+  let elementOptions = document.getElementById("colorOptions");
   colorOptions.forEach(function (item) {
     console.log(item);
-    let elementOptions = document.getElementById("colorOptions");
-    elementOptions.innerHTML += "<option>" + item + "<option>";
+
+    elementOptions.innerHTML += "<option>" + item + "</option>";
   });
-});
+};
 
-/* Création du tableau contenant les variables des produits */
-let productId;
-let productName;
-let productPrice;
-
-/* Création de l'objet qui sera envoyé au localStorage */
+let addToCard = function () {
+  let params = new URL(document.location).searchParams;
+  let idours = params.get("id");
+  if (idours == null) {
+    alert("Veuillez choisir un produit");
+    RedirectionIndex();
+  } else {
+    let urlId = "http://localhost:3000/api/teddies/" + idours;
+    fetchData(urlId).then(data => {
+      cardElements(data);
+    });
+  }
+};
+addToCard();
 
 /* -------   Bouton ajouter au panier  ------- */
-var buttonCart = document.getElementById("bouton");
-buttonCart.addEventListener("click", event => {
-  event.preventDefault();
 
+const addToCart = function (evt) {
+  evt.preventDefault();
+  let params = new URL(document.location).searchParams;
+  let idours = params.get("id");
   /* Déclaration de la variable où seront stockés keys/values du localStoage */
   let elementLocalStorage = JSON.parse(localStorage.getItem("produit"));
-
+  let urlId = "http://localhost:3000/api/teddies/" + idours;
   /* Ajout des valeurs du produit dans le tableau dataProduit */
-  fetchData().then(data => {
+  fetchData(urlId).then(data => {
     let productId = data._id;
     let productName = data.name;
     let productPrice = data.price;
@@ -56,7 +65,6 @@ buttonCart.addEventListener("click", event => {
       productPrice: productPrice
     };
     console.log(dataProduit);
-
     /* if:true Si le local storage n'est pas vide */
     if (elementLocalStorage) {
       elementLocalStorage.push(dataProduit);
@@ -67,4 +75,6 @@ buttonCart.addEventListener("click", event => {
       localStorage.setItem("produit", JSON.stringify(elementLocalStorage));
     }
   });
-});
+};
+let buttonCart = document.getElementById("bouton");
+buttonCart.addEventListener("click", addToCart);
