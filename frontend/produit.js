@@ -24,13 +24,11 @@ const cardElements = function (data) {
   let colorOptions = data.colors;
   let elementOptions = document.getElementById("colorOptions");
   colorOptions.forEach(function (item) {
-    console.log(item);
-
     elementOptions.innerHTML += "<option>" + item + "</option>";
   });
 };
 
-let addToCard = function () {
+const addToCard = function () {
   let params = new URL(document.location).searchParams;
   let idours = params.get("id");
   if (idours == null) {
@@ -64,7 +62,6 @@ const addToCart = function (evt) {
       productId: productId,
       productPrice: productPrice
     };
-    console.log(dataProduit);
     /* if:true Si le local storage n'est pas vide */
     if (elementLocalStorage) {
       elementLocalStorage.push(dataProduit);

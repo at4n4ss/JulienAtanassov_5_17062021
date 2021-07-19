@@ -1,3 +1,4 @@
+let elementLocalOrder = JSON.parse(localStorage.getItem("order"));
 /* Récupération des produits du panier dans le localStorage */
 let elementLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
@@ -12,7 +13,7 @@ const panierVide = function () {
 };
 /* Gestion du localStorage et insertion dans hmtl */
 const panierContent = function () {
-  if (elementLocalStorage.length === 0) {
+  if (elementLocalStorage == null) {
     panierVide();
   } else {
     /* ------Récupération de chaque produit et insertion du localstorage ------ */
@@ -183,27 +184,27 @@ elementLocalStorage.forEach(element => {
   product_id = element.productId;
   products.push(product_id);
 });
-let contact = {
-  firstName,
-  lastName,
-  address,
-  city,
-  email
-};
-let data = {
-  contact: contact,
-  products: products
-};
+let contact = {};
 
 /* ----- Envoi des données au backend ----- */
 /*  Fonction pour récupérer les données du formulaire */
 function getValue() {
-  let lastName = document.getElementById("lastName").value;
-  let firstName = document.getElementById("firstName").value;
-  let address = document.getElementById("address").value;
-  let city = document.getElementById("city").value;
-  let email = document.getElementById("email").value;
+  lastName = document.getElementById("lastName").value;
+  firstName = document.getElementById("firstName").value;
+  address = document.getElementById("address").value;
+  city = document.getElementById("city").value;
+  email = document.getElementById("email").value;
+  contact = {
+    lastName: lastName,
+    firstName: firstName,
+    address: address,
+    city: city,
+    email: email
+  };
 }
+const redirectOrder = function () {
+  document.location.href = "order.html";
+};
 function send(e) {
   e.preventDefault();
   if (elementLocalStorage.length === 0) {
@@ -212,6 +213,10 @@ function send(e) {
     validForm();
     if (validForm() == true) {
       getValue();
+      let data = {
+        contact: contact,
+        products: products
+      };
 
       fetch("http://localhost:3000/api/teddies/order", {
         method: "POST",
@@ -227,10 +232,21 @@ function send(e) {
           }
         })
         .then(function (value) {
-          console.log(value);
+          if (localStorage.getItem("order") == null) {
+            let elementLocalOrder = [];
+            elementLocalOrder.push(value);
+            localStorage.setItem("order", JSON.stringify(elementLocalOrder));
+            redirectOrder();
+          } else {
+            localStorage.removeItem("order");
+            let elementLocalOrder = [];
+            elementLocalOrder.push(value);
+            localStorage.setItem("order", JSON.stringify(elementLocalOrder));
+            redirectOrder();
+          }
         });
     } else {
-      console.log("erreur dans formulaire");
+      alert("Erreur dans formulaire");
     }
   }
 }

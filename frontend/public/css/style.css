@@ -271,3 +271,10 @@ a:hover {
   background-position-x: 95%;
   background-position-y: center;
 }
+
+/*  Order.html */
+
+.orderCard {
+  width: 80%;
+  padding: 30px;
+}
