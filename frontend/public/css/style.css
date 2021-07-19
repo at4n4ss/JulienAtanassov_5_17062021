@@ -35,6 +35,11 @@ body {
   border-color: rgb(195 165 246);
   line-height: 1;
 }
+@media (max-width: 767px) {
+  .btn-danger {
+    width: 41%;
+  }
+}
 #commander {
   background-color: lightgray;
 }
