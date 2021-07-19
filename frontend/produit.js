@@ -1,5 +1,5 @@
 /* Rediriger le client vers l'acceuil */
-function RedirectionIndex() {
+function redirectionIndex() {
   document.location.href = "../index.html";
 }
 /* Fonction pour retourner les data du back */
@@ -33,7 +33,7 @@ const addToCard = function () {
   let idours = params.get("id");
   if (idours == null) {
     alert("Veuillez choisir un produit");
-    RedirectionIndex();
+    redirectionIndex();
   } else {
     let urlId = "http://localhost:3000/api/teddies/" + idours;
     fetchData(urlId).then(data => {

@@ -99,6 +99,7 @@ let formPanier = document.getElementById("panierForm");
 /*-------- Validation des données du formulaire --------*/
 
 /*--- Nom ---*/
+
 formPanier.lastName.addEventListener("change", function () {
   validNames(this);
 });
